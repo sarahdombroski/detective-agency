@@ -1,23 +1,89 @@
 import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { setupDatabase, testConnection } from './src/models/setup.js';
+import session from 'express-session';
+import connectPgSimple from 'connect-pg-simple';
+import { startSessionCleanup } from './src/utils/session';
+// import routes from './src/controllers/routes.js';
+// import { addLocalVariables } from './src/middleware/global.js';
 
+// Server Config
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const NODE_ENV = process.env.NODE_ENV.toLowerCase() || 'production';
+const PORT = provess.env.PORT || 3000;
+
+// Setup Express Server
 const app = express();
+const pgSession = connectPgSimple(session);
 
-const name = process.env.NAME;
+// Configure session middleware
+app.use(session({
+    store: new pgSession({
+        conObject: {
+            connectionString: process.env.DB_URL
+        },
+        tableName: 'session',
+        createTableIfMissing: true
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: NODE_ENV.includes('dev') !== true,
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000
+    }
+}));
 
-app.get('/', (req, res) => {
-  const title = `Welcome Home ${name}`;  
-  res.render('home', { title });
-});
+startSessionCleanup();
 
+// configure express
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-const PORT = provess.env.PORT || 3000;
+// Global middleware
+// app.use(addLocalVariables);
+
+// Routes
+// app.use('/', routes);
+
+// error handling
 app.use((req, res, next) => {
-  res.locals.NODE_ENV = NODE_ENV.toLowerCase() || 'production';
-  next();
-})
+    const err = new Error('Page Not Found');
+    err.status = 404;
+    next(err);
+});
 
+app.use((err, req, res, next) => {
+    if (res.headersSent || res.finished) {
+        return next(err);
+    }
+
+    const status = err.status || 500;
+    const template = status === 404 ? '404' : '500';
+
+    const context = {
+        title: status === 404 ? 'Page Not Found' : 'Server Error',
+        error: NODE_ENV === 'production' ? 'An error occurred' : err.message,
+        stack: NODE_ENV === 'production' ? null : err.stack,
+        NODE_ENV
+    };
+
+    try {
+        res.status(status).render(`errors/${template}`, context);
+    } catch (renderErr) {
+        if (!res.headersSent) {
+            res.status(status).send(`<h1>Error ${status}</h1><p>An error occurred.</p>`);
+        }
+    }
+});
+
+// Websocket
 if (NODE_ENV.includes('dev')) {
     const ws = await import('ws');
 
@@ -37,6 +103,9 @@ if (NODE_ENV.includes('dev')) {
     }
 }
 
+// Start server
 app.listen(PORT, () => {
+  await setupDatabase();
+  await testConnection();
     console.log(`Server is running on http://127.0.0.1:${PORT}`);
 });
