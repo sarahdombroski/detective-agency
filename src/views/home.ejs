@@ -1,7 +1,117 @@
 <%- include('partials/header') %>
 <main>
-    <h1><%= title %></h1>
-    <p>Welcome to my Express application! This site demonstrates the power of templating engines.</p>
-    <img src="https://picsum.photos/600/400" alt="Random image">
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="eyebrow">EST. 1947 • PRIVATE INVESTIGATIONS</p>
+      <h1>
+        Every Secret<br>
+        <span>Leaves a Trace.</span>
+      </h1>
+      <p class="hero-description">
+        Welcome to The Midnight Detective Agency,
+        where mysteries await and the truth is
+        never quite what it seems.
+      </p>
+      <div class="hero-buttons">
+        <a href="/cases" class="btn btn-gold">
+          Explore Case Files
+        </a>
+        <a href="#how-it-works" class="btn btn-outline">
+          How It Works
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="how-it-works">
+    <div class="section-heading">
+      <p class="eyebrow">YOUR MISSION</p>
+      <h2>The Art of Investigation</h2>
+      <p>
+        Every great detective starts somewhere.
+        Here's how to begin your journey.
+      </p>
+    </div>
+    <div class="steps-container">
+      <article class="step-card">
+        <span class="step-number">01</span>
+        <div class="step-icon">⌕</div>
+        <h3>Accept a Case</h3>
+        <p>
+          Browse classified case files and
+          choose a mystery worthy of your
+          investigative skills.
+        </p>
+      </article>
+
+      <article class="step-card">
+        <span class="step-number">02</span>
+        <div class="step-icon">✦</div>
+        <h3>Examine the Evidence</h3>
+        <p>
+          Study the clues, investigate suspects,
+          and piece together the truth
+          hidden beneath the surface.
+        </p>
+      </article>
+
+      <article class="step-card">
+        <span class="step-number">03</span>
+        <div class="step-icon">✎</div>
+        <h3>Submit Your Report</h3>
+        <p>
+          Present your theory to a Senior
+          Detective, receive feedback,
+          and work toward solving the case.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FEATURED CASE -->
+  <section class="featured-case">
+    <div class="featured-container">
+      <div class="case-details">
+        <p class="eyebrow">FEATURED INVESTIGATION</p>
+        <span class="case-label">
+          CASE FILE NO. 001
+        </span>
+        <h2>The Clockmaker's Secret</h2>
+        <p class="case-description">
+          A mysterious incident. Three suspects.
+          Five clues. And a secret waiting
+          to be uncovered.
+        </p>
+        <p class="case-description">
+          Do you have what it takes to
+          discover the truth?
+        </p>
+        <a href="/cases" class="btn btn-gold">
+          View Case Files
+        </a>
+      </div>
+      <div class="case-visual">
+        <div class="case-stamp">CLASSIFIED</div>
+        <div class="case-symbol">◷</div>
+        <p>THE CLOCKMAKER'S SECRET</p>
+        <span>CONFIDENTIAL • FILE 001</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CALL TO ACTION -->
+  <section class="join-section">
+    <p class="eyebrow">THE AGENCY IS RECRUITING</p>
+    <h2>Ready to Uncover the Truth?</h2>
+    <p>
+      Your detective career begins with
+      a single clue.
+    </p>
+    <a href="/register" class="btn btn-gold">
+      Join the Agency
+    </a>
+  </section>
 </main>
 <%- include('partials/footer') %>

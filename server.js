@@ -4,15 +4,15 @@ import { fileURLToPath } from 'url';
 import { setupDatabase, testConnection } from './src/models/setup.js';
 import session from 'express-session';
 import connectPgSimple from 'connect-pg-simple';
-import { startSessionCleanup } from './src/utils/session';
-// import routes from './src/controllers/routes.js';
+import { startSessionCleanup } from './src/utils/session.js';
+import routes from './src/controllers/routes.js';
 // import { addLocalVariables } from './src/middleware/global.js';
 
 // Server Config
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const NODE_ENV = process.env.NODE_ENV.toLowerCase() || 'production';
-const PORT = provess.env.PORT || 3000;
+const NODE_ENV = (process.env.NODE_ENV || 'production').toLowerCase();
+const PORT = Number(process.env.PORT) || 3000;
 
 // Setup Express Server
 const app = express();
@@ -27,7 +27,7 @@ app.use(session({
         tableName: 'session',
         createTableIfMissing: true
     }),
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'development-only-change-me',
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -50,7 +50,7 @@ app.use(express.json());
 // app.use(addLocalVariables);
 
 // Routes
-// app.use('/', routes);
+app.use('/', routes);
 
 // error handling
 app.use((req, res, next) => {
@@ -104,7 +104,7 @@ if (NODE_ENV.includes('dev')) {
 }
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   await setupDatabase();
   await testConnection();
     console.log(`Server is running on http://127.0.0.1:${PORT}`);

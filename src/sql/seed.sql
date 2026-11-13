@@ -1,5 +1,10 @@
 BEGIN;
 
+-- Seed data needs an owner for the required cases.created_by foreign key.
+INSERT INTO users (username, email, password_hash, role)
+VALUES ('Agency Admin', 'admin@detective-agency.local', 'seed-user-no-login', 'admin')
+ON CONFLICT (email) DO NOTHING;
+
 -- seed a case
 INSERT INTO cases (
     title,
@@ -12,7 +17,8 @@ VALUES (
     'The Clockmaker''s Secret',
     'At midnight, renowned clockmaker Elias Thorne is found dead in his workshop. His prized silver pocket watch has vanished.',
     'medium',
-    'published'
+    'published',
+    (SELECT id FROM users WHERE email = 'admin@detective-agency.local')
 );
 
 -- seed the suspects

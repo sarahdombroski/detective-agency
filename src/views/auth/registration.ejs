@@ -1,0 +1,120 @@
+
+<%- include('../../partials/header') %>
+
+<main class="auth-page">
+
+  <div class="auth-container">
+
+    <div class="auth-heading">
+      <span class="auth-icon">✦</span>
+      <p class="eyebrow">NEW RECRUIT APPLICATION</p>
+
+      <h1>Join the Agency</h1>
+
+      <p>
+        Every great detective starts somewhere.
+        Complete your application to begin
+        uncovering the truth.
+      </p>
+    </div>
+
+    <form method="POST" action="/register" class="auth-form">
+
+      <!-- Name -->
+      <div class="form-group">
+        <label for="name">Detective Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Your full name"
+          autocomplete="name"
+          minlength="2"
+          required
+        >
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="detective@agency.com"
+          autocomplete="email"
+          required
+        >
+      </div>
+
+      <!-- Confirm Email -->
+      <div class="form-group">
+        <label for="emailConfirm">Confirm Email</label>
+        <input
+          type="email"
+          id="emailConfirm"
+          name="emailConfirm"
+          placeholder="Confirm your email"
+          autocomplete="email"
+          required
+        >
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Create Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Create a secure password"
+          autocomplete="new-password"
+          minlength="8"
+          pattern="(?=.*[0-9])(?=.*[!@#$%^&*]).*"
+          title="At least 8 characters, including a number and special character"
+          aria-describedby="password-help"
+          required
+        >
+        <p class="help-text" id="password-help">
+          Must contain at least 8 characters,
+          one number, and one special character.
+        </p>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-group">
+        <label for="passwordConfirm">Confirm Password</label>
+        <input
+          type="password"
+          id="passwordConfirm"
+          name="passwordConfirm"
+          placeholder="Confirm your password"
+          autocomplete="new-password"
+          minlength="8"
+          pattern="(?=.*[0-9])(?=.*[!@#$%^&*]).*"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn btn-gold auth-button">
+        Submit Application
+      </button>
+
+      <div class="form-footer">
+        <p>
+          Already a detective?
+          <a href="/login">Sign In</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+
+  <p class="auth-bottom-text">
+    YOUR INVESTIGATION BEGINS HERE
+  </p>
+
+</main>
+
+<%- include('../../partials/footer') %>

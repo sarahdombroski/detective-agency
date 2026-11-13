@@ -23,12 +23,29 @@
     <% } %>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/products">Products</a></li>
-            </ul>
-        </nav>
-    </header>
+  <header class="site-header">
+    <div class="header-container">
+
+      <a href="/" class="site-logo">
+        <span class="logo-icon">✦</span>
+        <div class="logo-text">
+          <span class="logo-title">THE MIDNIGHT</span>
+          <span class="logo-subtitle">DETECTIVE AGENCY</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/cases">Case Files</a></li>
+          <li><a href="/investigations">My Investigations</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <a href="/login" class="btn btn-outline">Log In</a>
+        <a href="/register" class="btn btn-gold">Join Agency</a>
+      </div>
+
+    </div>
+  </header>

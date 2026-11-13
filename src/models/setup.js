@@ -36,13 +36,13 @@ const setupDatabase = async () => {
     
     // No tables found - build the schema
     console.log('Seeding database...');
-    const seedPath = join(__dirname, 'sql', 'schema.sql');
-    const seedSQL = fs.readFileSync(seedPath, 'utf8');
+    const schemaPath = join(__dirname, '..', 'sql', 'schema.sql');
+    const seedSQL = fs.readFileSync(schemaPath, 'utf8');
     await db.query(seedSQL);
     console.log('Database seeded successfully');
 
     // Run seed.sql if it exists (to seed the db)
-    const seedPath = join(__dirname, 'sql', 'seed.sql');
+    const seedPath = join(__dirname, '..', 'sql', 'seed.sql');
     if (fs.existsSync(seedPath)) {
         const practiceSQL = fs.readFileSync(seedPath, 'utf8');
         await db.query(practiceSQL);

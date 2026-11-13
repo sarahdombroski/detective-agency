@@ -1,0 +1,68 @@
+
+<%- include('../../partials/header') %>
+
+<main class="auth-page">
+
+  <div class="auth-container">
+
+    <div class="auth-heading">
+      <span class="auth-icon">✦</span>
+      <p class="eyebrow">AUTHORIZED PERSONNEL ONLY</p>
+
+      <h1>Welcome Back, Detective</h1>
+
+      <p>
+        The agency has been expecting you.
+        Sign in to continue your investigations.
+      </p>
+    </div>
+
+    <form method="POST" action="/login" class="auth-form">
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="detective@agency.com"
+          autocomplete="email"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Enter your password"
+          autocomplete="current-password"
+          minlength="8"
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn btn-gold auth-button">
+        Enter the Agency
+      </button>
+
+      <div class="form-footer">
+        <p>
+          New recruit?
+          <a href="/register">Join the Agency</a>
+        </p>
+      </div>
+
+    </form>
+
+  </div>
+
+  <p class="auth-bottom-text">
+    CONFIDENTIAL ACCESS • MIDNIGHT DETECTIVE AGENCY
+  </p>
+
+</main>
+
+<%- include('../../partials/footer') %>
